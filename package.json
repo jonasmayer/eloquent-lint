@@ -4,7 +4,8 @@
   "license": "MIT",
   "description": "An extremely simple, pluggable lint",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test",
+    "lint": "eslint lib test example"
   },
   "dependencies": {
     "absolute": "0.0.1",
@@ -31,6 +32,9 @@
     "assert-dir-equal": "~1.0.1",
     "co-mocha": "^1.0.1",
     "coveralls": "^2.11.6",
+    "eslint": "^3.8.1",
+    "eslint-config-airbnb-base": "^9.0.0",
+    "eslint-plugin-import": "^2.0.1",
     "istanbul": "^0.4.1",
     "mocha": "^3.0.2"
   }

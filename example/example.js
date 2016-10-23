@@ -1,25 +1,26 @@
-var Eloquent = require('../lib');
-var _ = require('lodash');
+const _ = require("lodash");
+const Eloquent = require("../lib");
 
-var tester = function(opts){
-
-    return function(files, eloquent, done){
-        _.forEach(files, function(file, fileName){
-            _.forEach(file.lines, function(line, index){  
-                var patt = new RegExp("e","g");
-                var match = patt.exec(line);
-                    while (match != null) {
-                        eloquent.printMessage(fileName, index+1, match.index+1, "You have a 'e' in " + line.substring( match.index - 10, match.index + 10) );
-                        match = patt.exec(line);
-                    }
-                });
+const example = function () {
+    return function (files, eloquent, done) {
+        _.forEach(files, (file, fileName) => {
+            _.forEach(file.lines, (line, index) => {
+                const patt = new RegExp("e", "g");
+                let match = patt.exec(line);
+                while (match != null) {
+                    eloquent.printMessage(fileName, index + 1, match.index + 1, "You have a 'e' in ", line.substring(match.index - 10, match.index + 10));
+                    match = patt.exec(line);
+                }
             });
+        });
         done();
-    }
-}
-  
- 
+    };
+};
 
-Eloquent('./sample')
-    .use(tester())
-    .process(function(e,h){if (e){throw e;}});
+Eloquent("./example/sample")
+    .use(example())
+    .process((e) => {
+        if (e) {
+            throw e;
+        }
+    });

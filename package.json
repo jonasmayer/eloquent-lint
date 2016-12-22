@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "license": "MIT",
   "description": "An extremely simple, pluggable lint",
+  "main": "./build/eloquent.js",
   "scripts": {
     "start": "babel-node index.js --presets es2015,stage-0 --source-maps --require babel-polyfill",
     "run-example": "babel-node example/example.js --presets es2015,stage-0 --source-maps --require babel-polyfill",
     "test": "ava test",
-    "check": "npm-check",
+    "build": "babel index.js lib -o ./build/eloquent.js --presets es2015,stage-0 --source-maps --require babel-polyfill --debug",
     "lint": "eslint lib test example"
   },
   "dependencies": {
@@ -39,7 +40,7 @@
   },
   "ava": {
     "files": [
-      "test.js"
+      "test"
     ],
     "source": [
       "**/*.{js,jsx}",

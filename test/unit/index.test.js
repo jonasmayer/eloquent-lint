@@ -185,3 +185,17 @@ test.cb("runs plugins with files", (t) => {
         t.end();
     });
 });
+
+test("", (t) => {
+    const eloquent = Eloquent(".");
+    const expectedPath = "file";
+    eloquent.getAbsolutePath(expectedPath);
+    t.deepEqual(eloquent.getAbsolutePath("file"), path.resolve(".", expectedPath));
+});
+
+test("", (t) => {
+    const eloquent = Eloquent(".");
+    const expectedPath = path.resolve(".", "file");
+    eloquent.getAbsolutePath(expectedPath);
+    t.deepEqual(eloquent.getAbsolutePath("file"), expectedPath);
+});

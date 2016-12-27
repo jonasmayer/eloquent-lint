@@ -8,7 +8,7 @@
     "start": "babel-node index.js --presets es2015,stage-0 --source-maps --require babel-polyfill",
     "run-example": "babel-node example/example.js --presets es2015,stage-0 --source-maps --require babel-polyfill",
     "test": "ava test",
-    "build": "babel index.js lib -o ./build/eloquent.js --presets es2015,stage-0 --source-maps --require babel-polyfill --debug",
+    "build": "babel --presets es2015,stage-0 --source-maps --require babel-polyfill  lib -d  build",
     "lint": "eslint lib test example"
   },
   "dependencies": {

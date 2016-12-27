@@ -1,25 +1,66 @@
-'use strict';
-
-module.exports = require('./lib');
 "use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _absolute = require("absolute");
+
+var _absolute2 = _interopRequireDefault(_absolute);
+
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _clone = require("clone");
+
+var _clone2 = _interopRequireDefault(_clone);
+
+var _coFsExtra = require("co-fs-extra");
+
+var _coFsExtra2 = _interopRequireDefault(_coFsExtra);
+
+var _is = require("is");
+
+var _is2 = _interopRequireDefault(_is);
+
+var _path = require("path");
+
+var _path2 = _interopRequireDefault(_path);
+
+var _recursiveReaddir = require("recursive-readdir");
+
+var _recursiveReaddir2 = _interopRequireDefault(_recursiveReaddir);
+
+var _thunkify = require("thunkify");
+
+var _thunkify2 = _interopRequireDefault(_thunkify);
+
+var _unyield = require("unyield");
+
+var _unyield2 = _interopRequireDefault(_unyield);
+
+var _isUtf = require("is-utf8");
+
+var _isUtf2 = _interopRequireDefault(_isUtf);
+
+var _ware = require("ware");
+
+var _ware2 = _interopRequireDefault(_ware);
+
+var _os = require("os");
+
+var _os2 = _interopRequireDefault(_os);
+
+var _lodash = require("lodash");
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var absolute = require("absolute");
-var assert = require("assert");
-var clone = require("clone");
-var fs = require("co-fs-extra");
-var is = require("is");
-var path = require("path");
-var readdir = require("recursive-readdir");
-var thunkify = require("thunkify");
-var unyield = require("unyield");
-var utf8 = require("is-utf8");
-var Ware = require("ware");
-var os = require("os");
-var _ = require("lodash");
-
-var readdirThunkified = thunkify(readdir);
+var readdirThunkified = (0, _thunkify2.default)(_recursiveReaddir2.default);
 
 /**
  * Initialize a new `Eloquent` builder with a working `directory`.
@@ -31,7 +72,7 @@ function Eloquent(directory) {
         return new Eloquent(directory);
     }
 
-    assert(directory, "You must pass a working directory path.");
+    (0, _assert2.default)(directory, "You must pass a working directory path.");
 
     this.plugins = [];
     this.ignores = [];
@@ -42,8 +83,8 @@ function Eloquent(directory) {
 }
 
 Eloquent.prototype.setDirectory = function (directory) {
-    assert(is.string(directory), "You must pass a directory path string.");
-    this.directory = path.resolve(directory);
+    (0, _assert2.default)(_is2.default.string(directory), "You must pass a directory path string.");
+    this.directory = _path2.default.resolve(directory);
 };
 
 Eloquent.prototype.getDirectory = function () {
@@ -51,8 +92,8 @@ Eloquent.prototype.getDirectory = function () {
 };
 
 Eloquent.prototype.setMetadata = function (metadata) {
-    assert(is.object(metadata), "You must pass a metadata object.");
-    this.metadata = clone(metadata);
+    (0, _assert2.default)(_is2.default.object(metadata), "You must pass a metadata object.");
+    this.metadata = (0, _clone2.default)(metadata);
 };
 
 Eloquent.prototype.getMetadata = function () {
@@ -60,7 +101,7 @@ Eloquent.prototype.getMetadata = function () {
 };
 
 Eloquent.prototype.setSource = function (source) {
-    assert(is.string(source), "You must pass a source path string.");
+    (0, _assert2.default)(_is2.default.string(source), "You must pass a source path string.");
     this.source = this.path(source);
 };
 
@@ -69,7 +110,7 @@ Eloquent.prototype.getSource = function () {
 };
 
 Eloquent.prototype.setConcurrency = function (max) {
-    assert(is.number(max), "You must pass a number for concurrency.");
+    (0, _assert2.default)(_is2.default.number(max), "You must pass a number for concurrency.");
     this.concurrency = max;
 };
 
@@ -92,7 +133,7 @@ Eloquent.prototype.getIgnore = function () {
  * @return {Eloquent}
  */
 Eloquent.prototype.use = function (plugin) {
-    assert(plugin, "You must pass a valid function");
+    (0, _assert2.default)(plugin, "You must pass a valid function");
 
     this.plugins.push(plugin);
     return this;
@@ -111,7 +152,7 @@ Eloquent.prototype.path = function () {
 
     var paths = [].slice.call(args);
     paths.unshift(this.getDirectory());
-    return path.resolve.apply(path, _toConsumableArray(paths));
+    return _path2.default.resolve.apply(_path2.default, _toConsumableArray(paths));
 };
 
 /**
@@ -119,7 +160,7 @@ Eloquent.prototype.path = function () {
  *
  * @return {Object}
  */
-Eloquent.prototype.process = unyield(regeneratorRuntime.mark(function _callee() {
+Eloquent.prototype.process = (0, _unyield2.default)(regeneratorRuntime.mark(function _callee() {
     var files;
     return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
@@ -152,14 +193,14 @@ Eloquent.prototype.process = unyield(regeneratorRuntime.mark(function _callee() 
  * @param {Array} plugins
  * @return {Object}
  */
-Eloquent.prototype.run = unyield(regeneratorRuntime.mark(function _callee2(files, plugins) {
+Eloquent.prototype.run = (0, _unyield2.default)(regeneratorRuntime.mark(function _callee2(files, plugins) {
     var ware, run, res;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
         while (1) {
             switch (_context2.prev = _context2.next) {
                 case 0:
-                    ware = new Ware(plugins || this.plugins);
-                    run = thunkify(ware.run.bind(ware));
+                    ware = new _ware2.default(plugins || this.plugins);
+                    run = (0, _thunkify2.default)(ware.run.bind(ware));
                     _context2.next = 4;
                     return run(files, this);
 
@@ -182,7 +223,7 @@ Eloquent.prototype.run = unyield(regeneratorRuntime.mark(function _callee2(files
  * @param {String} dir (optional)
  * @return {Object}
  */
-Eloquent.prototype.read = unyield(regeneratorRuntime.mark(function _callee3() {
+Eloquent.prototype.read = (0, _unyield2.default)(regeneratorRuntime.mark(function _callee3() {
     var dir = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.getSource();
     var read, concurrency, ignores, paths, files, complete, batch, memoizer;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -190,8 +231,8 @@ Eloquent.prototype.read = unyield(regeneratorRuntime.mark(function _callee3() {
             switch (_context3.prev = _context3.next) {
                 case 0:
                     memoizer = function memoizer(memo, file, i) {
-                        var relativePathFile = path.relative(dir, file);
-                        var newMemo = _.clone(memo);
+                        var relativePathFile = _path2.default.relative(dir, file);
+                        var newMemo = _lodash2.default.clone(memo);
                         newMemo[relativePathFile] = files[i];
                         return newMemo;
                     };
@@ -244,7 +285,7 @@ Eloquent.prototype.read = unyield(regeneratorRuntime.mark(function _callee3() {
  * @param {String} file
  * @return {Object}
  */
-Eloquent.prototype.readFile = unyield(regeneratorRuntime.mark(function _callee4(file) {
+Eloquent.prototype.readFile = (0, _unyield2.default)(regeneratorRuntime.mark(function _callee4(file) {
     var ret, filePath, buffer;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
@@ -254,17 +295,17 @@ Eloquent.prototype.readFile = unyield(regeneratorRuntime.mark(function _callee4(
                     filePath = this.getAbsolutePath(file);
                     _context4.prev = 2;
                     _context4.next = 5;
-                    return fs.readFile(filePath);
+                    return _coFsExtra2.default.readFile(filePath);
 
                 case 5:
                     buffer = _context4.sent;
 
-                    if (utf8(buffer)) {
+                    if ((0, _isUtf2.default)(buffer)) {
                         ret.contents = buffer.toString("utf8");
-                        ret.lines = buffer.toString("utf8").split(os.EOL);
+                        ret.lines = buffer.toString("utf8").split(_os2.default.EOL);
                     } else {
                         ret.contents = buffer.toString();
-                        ret.lines = buffer.toString().split(os.EOL);
+                        ret.lines = buffer.toString().split(_os2.default.EOL);
                     }
                     _context4.next = 14;
                     break;
@@ -289,8 +330,8 @@ Eloquent.prototype.readFile = unyield(regeneratorRuntime.mark(function _callee4(
 }));
 
 Eloquent.prototype.getAbsolutePath = function (file) {
-    if (!absolute(file)) {
-        return path.resolve(this.getSource(), file);
+    if (!(0, _absolute2.default)(file)) {
+        return _path2.default.resolve(this.getSource(), file);
     }
     return file;
 };
@@ -303,11 +344,10 @@ Eloquent.prototype.getAbsolutePath = function (file) {
  * @param {String} message
  */
 Eloquent.prototype.printMessage = function (fileName, line, column, message) {
-    assert(is.number(line), "line must be a number");
-    assert(is.number(column), "column must be a number");
+    (0, _assert2.default)(_is2.default.number(line), "line must be a number");
+    (0, _assert2.default)(_is2.default.number(column), "column must be a number");
     console.log(fileName + " - " + line + ":" + column + " " + message);
 };
 
-module.exports = Eloquent;
-
-//# sourceMappingURL=eloquent.js.map
+exports.default = Eloquent;
+//# sourceMappingURL=index.js.map

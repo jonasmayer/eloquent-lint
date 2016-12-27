@@ -2,7 +2,7 @@ import test from "ava";
 import path from "path";
 import sinon from "sinon";
 
-import Eloquent from "../../index.js";
+import Eloquent from "../../lib";
 
 // constructor
 test("Eloquent returns a constructor", (t) => {

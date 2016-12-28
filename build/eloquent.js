@@ -350,4 +350,5 @@ Eloquent.prototype.printMessage = function (fileName, line, column, message) {
 };
 
 exports.default = Eloquent;
-//# sourceMappingURL=index.js.map
+
+//# sourceMappingURL=eloquent.js.map

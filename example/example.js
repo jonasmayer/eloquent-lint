@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const Eloquent = require("../lib");
+const Eloquent = require("../build/eloquent").default;
 
 const example = function () {
     return function (files, eloquent, done) {

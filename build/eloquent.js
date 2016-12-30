@@ -4,6 +4,14 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _regenerator = require("babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _toConsumableArray2 = require("babel-runtime/helpers/toConsumableArray");
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
 var _absolute = require("absolute");
 
 var _absolute2 = _interopRequireDefault(_absolute);
@@ -57,8 +65,6 @@ var _lodash = require("lodash");
 var _lodash2 = _interopRequireDefault(_lodash);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var readdirThunkified = (0, _thunkify2.default)(_recursiveReaddir2.default);
 
@@ -152,7 +158,7 @@ Eloquent.prototype.path = function () {
 
     var paths = [].slice.call(args);
     paths.unshift(this.getDirectory());
-    return _path2.default.resolve.apply(_path2.default, _toConsumableArray(paths));
+    return _path2.default.resolve.apply(_path2.default, (0, _toConsumableArray3.default)(paths));
 };
 
 /**
@@ -160,9 +166,9 @@ Eloquent.prototype.path = function () {
  *
  * @return {Object}
  */
-Eloquent.prototype.process = (0, _unyield2.default)(regeneratorRuntime.mark(function _callee() {
+Eloquent.prototype.process = (0, _unyield2.default)(_regenerator2.default.mark(function _callee() {
     var files;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
+    return _regenerator2.default.wrap(function _callee$(_context) {
         while (1) {
             switch (_context.prev = _context.next) {
                 case 0:
@@ -193,9 +199,9 @@ Eloquent.prototype.process = (0, _unyield2.default)(regeneratorRuntime.mark(func
  * @param {Array} plugins
  * @return {Object}
  */
-Eloquent.prototype.run = (0, _unyield2.default)(regeneratorRuntime.mark(function _callee2(files, plugins) {
+Eloquent.prototype.run = (0, _unyield2.default)(_regenerator2.default.mark(function _callee2(files, plugins) {
     var ware, run, res;
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+    return _regenerator2.default.wrap(function _callee2$(_context2) {
         while (1) {
             switch (_context2.prev = _context2.next) {
                 case 0:
@@ -223,10 +229,10 @@ Eloquent.prototype.run = (0, _unyield2.default)(regeneratorRuntime.mark(function
  * @param {String} dir (optional)
  * @return {Object}
  */
-Eloquent.prototype.read = (0, _unyield2.default)(regeneratorRuntime.mark(function _callee3() {
+Eloquent.prototype.read = (0, _unyield2.default)(_regenerator2.default.mark(function _callee3() {
     var dir = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.getSource();
     var read, concurrency, ignores, paths, files, complete, batch, memoizer;
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+    return _regenerator2.default.wrap(function _callee3$(_context3) {
         while (1) {
             switch (_context3.prev = _context3.next) {
                 case 0:
@@ -285,9 +291,9 @@ Eloquent.prototype.read = (0, _unyield2.default)(regeneratorRuntime.mark(functio
  * @param {String} file
  * @return {Object}
  */
-Eloquent.prototype.readFile = (0, _unyield2.default)(regeneratorRuntime.mark(function _callee4(file) {
+Eloquent.prototype.readFile = (0, _unyield2.default)(_regenerator2.default.mark(function _callee4(file) {
     var ret, filePath, buffer;
-    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+    return _regenerator2.default.wrap(function _callee4$(_context4) {
         while (1) {
             switch (_context4.prev = _context4.next) {
                 case 0:
@@ -350,5 +356,3 @@ Eloquent.prototype.printMessage = function (fileName, line, column, message) {
 };
 
 exports.default = Eloquent;
-
-//# sourceMappingURL=eloquent.js.map

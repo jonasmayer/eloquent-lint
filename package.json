@@ -6,9 +6,9 @@
   "main": "./build/eloquent.js",
   "scripts": {
     "start": "babel-node index.js --presets es2015,stage-3 --source-maps --plugins transform-runtime",
-    "run-example": "babel-node example/example.js --presets es2015,stage-0 --source-maps --require babel-polyfill",
+    "run-example": "babel-node example/example.js --presets es2015,stage-3 --source-maps --require babel-polyfill",
     "test": "ava test",
-    "build": "babel --presets es2015,stage-0 --plugins transform-runtime ./lib/index.js -o  build/eloquent.js",
+    "build": "babel --presets es2015,stage-3 --plugins transform-runtime ./lib/index.js -o  build/eloquent.js",
     "lint": "eslint lib test example"
   },
   "dependencies": {
